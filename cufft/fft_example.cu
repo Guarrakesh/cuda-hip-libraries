@@ -3,7 +3,7 @@
 #include <vector>
 #include <iostream>
 #include "../common/timers.hpp"
-
+#include "../common/error_macros.h"
 #define N_DIM 8192
 #define N_PRINTS 30
 
@@ -59,7 +59,7 @@ namespace dft_functions
 int main() {
     int i;
     
-    CPUTimer timer;
+    helpers::CPUTimer timer;
 
     std::vector<std::complex<double> > samples;
     dft_functions::generate_fake_signal(samples, N_DIM);

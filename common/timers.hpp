@@ -35,25 +35,25 @@ namespace helpers
     public:
         GPUTimer()
         {
-            CHECK_ERROR(cudaEventCreate(&mStart));
-            CHECK_ERROR(cudaEventCreate(&mStop));
+            CHECK(cudaEventCreate(&mStart));
+            CHECK(cudaEventCreate(&mStop));
         }
         virtual ~GPUTimer()
         {
-            CHECK_ERROR(cudaEventDestroy(mStart));
-            CHECK_ERROR(cudaEventDestroy(mStop));
+            CHECK(cudaEventDestroy(mStart));
+            CHECK(cudaEventDestroy(mStop));
         }
 
         void start()
         {
-            CHECK_ERROR(cudaEventRecord(mStart));
+            CHECK(cudaEventRecord(mStart));
         }
         float stop(const char* msg = nullptr)
         {
-            CHECK_ERROR(cudaEventRecord(mStop));
-            CHECK_ERROR(cudaEventSynchronize(mStop));
+            CHECK(cudaEventRecord(mStop));
+            CHECK(cudaEventSynchronize(mStop));
             float timeElaspsedMillisec = 0.0f;
-            CHECK_ERROR(cudaEventElapsedTime(&timeElaspsedMillisec, mStart, mStop));
+            CHECK(cudaEventElapsedTime(&timeElaspsedMillisec, mStart, mStop));
             const char* prefix = msg ? msg : "cudaEventElapsedTime: ";
             std::cout << prefix << timeElaspsedMillisec << "ms" << std::endl;
             return timeElaspsedMillisec;
